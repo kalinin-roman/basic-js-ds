@@ -14,20 +14,35 @@ const { NotImplementedError } = require('../extensions/index.js');
  * queue.getUnderlyingList() // returns { value: 3, next: null }
  */
 class Queue {
-
-  getUnderlyingList() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor() {
+    this.arr = [];
   }
 
-  enqueue(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  getUnderlyingList() {
+    // создание объекта, указываем значение первого элемента массива и null для отметки что этот элемент последний
+    let currentItem = {value: this.arr[0], next: null};
+    //ссылка на жлемент
+    let first = currentItem;
+    for (let i = 1; i < this.arr.length; i++) {
+      // пересоздаем объект с новым элементом списка и следующим щза ним в цикле
+      currentItem.next = {value: this.arr[i], next: null};
+      // обновляем текущий элемент в списке
+      currentItem = currentItem.next;
+    }
+    return first;
+  }
+
+  enqueue(value) {
+    this.arr.push(value);
   }
 
   dequeue() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    //проверка на наличие элементов в массиве и возвращаем первый элемент
+    if (this.arr.length !== 0) {
+      return this.arr.shift();
+    } else {
+      return undefined; 
+    }
   }
 }
 
